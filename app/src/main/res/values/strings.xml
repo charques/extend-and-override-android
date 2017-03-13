@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Settings</string>
+    <string name="dni">DNI</string>
+    <string name="movemoney">Move Money</string>
+    <string name="personalareal">Área Personal</string>
+    <string name="birthdate">Fecha de Nacimiento</string>
+    <string name="accept">Aceptar</string>
+</resources>

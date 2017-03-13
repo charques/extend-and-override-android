@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/dniLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dni"
+        android:textSize="10pt">
+    </TextView>
+
+    <EditText
+        android:id="@+id/dniText"
+        android:layout_height="wrap_content"
+        android:hint="dni"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <TextView
+        android:id="@+id/birthDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/birthdate"
+        android:textSize="10pt">
+    </TextView>
+
+    <EditText
+        android:id="@+id/birthDateText"
+        android:layout_height="wrap_content"
+        android:hint="@string/birthdate"
+        android:inputType="textPersonName"
+        android:layout_width="fill_parent">
+    </EditText>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:onClick="selfDestruct"
+        android:text="@string/accept" />
+
+    <TextView
+        android:id="@+id/positions"
+        android:layout_width="match_parent"
+        android:textSize="13pt"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.10" />
+
+    <GridLayout
+        android:layout_width="331dp"
+        android:layout_height="55dp">
+
+        <ImageView
+            android:id="@+id/pin0"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin1"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin2"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.10"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin3"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin4"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF" />
+
+    </GridLayout>
+    <GridLayout
+        android:layout_width="328dp"
+        android:layout_height="55dp"
+        android:layout_weight="0.02">
+
+        <ImageView
+            android:id="@+id/pin5"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin6"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin7"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.10"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin8"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.11"
+            android:textColor="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/pin9"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:textColor="#FFFFFF" />
+
+    </GridLayout>
+</LinearLayout>
