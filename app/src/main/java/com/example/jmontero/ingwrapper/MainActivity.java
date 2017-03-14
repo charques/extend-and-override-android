@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.WebViewFragment;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final HttpsClientTool httpsClientTool = new HttpsClientTool(this);
     private ViewSwitcher switcher;
+    private String webviewStatus = NativeViewChangeEvent.NATIVE_CHANGE;
     private List<Integer> pins = new ArrayList<Integer>();
 
     @Override
@@ -92,12 +94,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onEvent(NativeViewChangeEvent event){
-        switcher.showNext();
+    public void onEvent(final NativeViewChangeEvent event) {
+        if (!webviewStatus.equals(event.getMessage())) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    webviewStatus = event.getMessage();
+                    switcher.showNext();
+                }
+            });
+        }
+
+
     }
 
     private void initView() {
         setContentView(R.layout.activity_main);
+        FragmentWebView wvf = new FragmentWebView();
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.webcontainer, wvf).commit();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
@@ -122,10 +138,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentWebView wvf = new FragmentWebView();
 
-                getFragmentManager().beginTransaction()
-                        .add(R.id.webcontainer, wvf).commit();
                 switcher.showNext();
             }
         });
@@ -211,6 +224,8 @@ public class MainActivity extends AppCompatActivity {
 
                         JSONObject jsonResponse = sendPinPositions();
                         sendLoginToAPI(jsonResponse);
+                        navigateToOverallPosition();
+
                         pins.clear();
 
                     } catch (JSONException | MalformedURLException | UnsupportedEncodingException e) {
@@ -246,13 +261,17 @@ public class MainActivity extends AppCompatActivity {
 
                 String ticketResponse = doRequest(jsonRequest.toString(), new URL(LOGIN_SESSION_URL), "PUT", "application/json");
 
-                Log.d("MyApplication", ticketResponse);
                 return new JSONObject(ticketResponse);
             }
         });
 
         image.setImageBitmap(Bitmap.createScaledBitmap(bmp, image.getWidth(),
                 image.getHeight(), false));
+    }
+
+    private void navigateToOverallPosition() {
+        EventBus.getDefault().post(new WebNavigationEvent("https://ing.ingdirect.es/pfm/#overall-position"));
+
     }
 
 }

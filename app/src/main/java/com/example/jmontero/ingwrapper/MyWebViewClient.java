@@ -52,13 +52,13 @@ class MyWebViewClient extends WebViewClient {
 
         if ("www.ingdirect.es".equals(host)) {
             // Returning false means that you are going to load this url in the webView itself
-            Log.d("MyApplication", "Pasar a navegación nativa");
             EventBus.getDefault().post(new NativeViewChangeEvent("nativeChange"));
             return true;
         } else {
             // Returning true means that you need to handle what to do with the url
             // e.g. open web page in a Browser
-            Log.d("MyApplication", "Continuar con navegación web");
+            if (!view.isFocusable())
+                EventBus.getDefault().post(new NativeViewChangeEvent("webviewChange"));
 
         }
         return false;

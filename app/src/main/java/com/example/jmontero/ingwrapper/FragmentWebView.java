@@ -18,6 +18,7 @@ import de.greenrobot.event.EventBus;
 public class FragmentWebView extends Fragment {
 
     private WebView webview;
+    private Boolean firstEntry = Boolean.TRUE;
 
     @Nullable
     @Override
@@ -26,7 +27,7 @@ public class FragmentWebView extends Fragment {
         initEventBus();
         initWebView(view);
 
-        loadUrl("https://ing.ingdirect.es/pfm/#login/sso");
+        loadUrl("https://ing.ingdirect.es/pfm/#login/customer");
 
         return view;
     }
@@ -41,17 +42,25 @@ public class FragmentWebView extends Fragment {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setDomStorageEnabled(true);
         webview.setWebViewClient(new MyWebViewClient());
+        webview.addJavascriptInterface(new MyJavascriptInterface(), "myJSInterface");
     }
 
     private void initEventBus() {
         EventBus.getDefault().register(this);
     }
 
-    private void loadUrl(String url) {
+    public void loadUrl(String url) {
         webview.loadUrl(url);
     }
 
     public void onEvent(WebNavigationEvent event){
+        if (firstEntry) {
+            loadUrl("javascript:(function() {require('nucleosoma.RootApplication').controller.application.controller.dispatchToApp('changeCurrentSecurityLevel',{securityLevel: 2})})();");
+
+            loadUrl("javascript:(function(){console.log('ejectuando listener nativo para escuchar los cambios de hash'); $(window).on('hashchange', function() { myJSInterface.listenHashChange(); })})()");
+
+            firstEntry = false;
+        }
         loadUrl(event.getMessage());
     }
 }

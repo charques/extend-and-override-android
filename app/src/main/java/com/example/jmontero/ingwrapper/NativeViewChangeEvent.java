@@ -5,6 +5,9 @@ package com.example.jmontero.ingwrapper;
  */
 
 public class NativeViewChangeEvent {
+
+    public static final String NATIVE_CHANGE = "nativeChange";
+    public static final String WEBVIEW_CHANGE ="webviewChange";
     private final String message;
 
     public NativeViewChangeEvent(String message) {
